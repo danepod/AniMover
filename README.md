@@ -10,6 +10,12 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
+## TODO
+
+  - Log renames into file (old name -> new name)
+  - Allow other regex characters
+  - Offer Web page to add rename jobs with expiry dates
+
 ## Learn more
 
   * Official website: https://www.phoenixframework.org/

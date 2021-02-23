@@ -1,0 +1,16 @@
+{
+    "watched_folders": ["/Users/Foobert/Downloads"],
+    "jobs": [
+        {
+            "pattern": "[SubGroup]_Attack_On_Human_-_##_[Blu-ray_1080p_Hi10P_FLAC][61DCE29F].mkv",
+            "destination": "/Users/Foobert/Anime/Attack on Human/Season 01",
+            "target_pattern": "Attack on Human S01E##.mkv"
+        },
+        {
+            "pattern": "[SubGroup] Shingeki no Ningen (The Final Season) - 65 (1080p) [F542501D].mkv",
+            "destination": "/Users/Foobert/Anime/Attack on Human/Season 04",
+            "target_pattern": "Attack on Human S04E##.mkv",
+            "opts": { "offset": -59 }
+        }
+    ]
+}
