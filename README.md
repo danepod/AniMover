@@ -1,25 +1,12 @@
 # AniMover
 
-To start your Phoenix server:
-
-  * Install dependencies with `mix deps.get`
-  * Install Node.js dependencies with `npm install` inside the `assets` directory
-  * Start Phoenix endpoint with `mix phx.server`
-
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+Small tool to automatically move files matching a certain pattern over to another folder, while also renaming. Allows 
+for the configuration of simple rules, like increasing/decreasing a matched number when renaming files.
 
 ## TODO
 
   - Log renames into file (old name -> new name)
-  - Allow other regex characters
-  - Offer Web page to add rename jobs with expiry dates
-
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+  - Allow other regex's to be used for matching
+  - Offer Web page to add/remove jobs
+  - Support expiry dates for jobs
+  - Create Docker image
