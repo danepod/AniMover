@@ -14,11 +14,12 @@ defmodule AniMover.FileWatcher do
 
   # GenServer implementation -------------------------------------------------------------------------------------------
   def init(args \\ []) do
-    args = Keyword.put_new(args, :dirs, load_configuration())
+    args = Keyword.put_new(args, :dirs, AniMover.JobConfig.get_watched_folders())
 
+    # TODO: inode-tools' file watching doesn't work inside Docker, prepare a polling solution
     {:ok, watcher_pid} = FileSystem.start_link(args)
     FileSystem.subscribe(watcher_pid)
-    {:ok, %{watcher_pid: watcher_pid, watched_folders: Keyword.get(args, :dirs)}}
+    {:ok, %{watcher_pid: watcher_pid, watched_folders: AniMover.JobConfig.get_watched_folders()}}
   end
 
   def handle_call(:scan_now, _from, state = %{watched_folders: watched_folders}) do
@@ -41,16 +42,6 @@ defmodule AniMover.FileWatcher do
   def handle_info({:file_event, watcher_pid, :stop}, %{watcher_pid: watcher_pid} = state) do
     # This executes when the file monitor is stopped
     {:noreply, state}
-  end
-
-  defp load_configuration(job_file \\ "jobs.json") do
-    job_file
-    |> File.read!()
-    |> Jason.decode!(keys: :atoms!)
-    |> Map.fetch!(:watched_folders)
-  rescue
-    e in File.Error -> Logger.error("Failed to open file: #{inspect(e)}")
-    e in Jason.DecodeError -> Logger.error("Failed to deserialize JSON file: #{inspect(e)}")
   end
 
   defp scan_folder(path),

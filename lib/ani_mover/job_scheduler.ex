@@ -1,10 +1,10 @@
 defmodule AniMover.JobScheduler do
   require Logger
 
-  alias AniMover.Job
+  alias AniMover.{Job, JobConfig}
 
   def active?(file_name) do
-    load_jobs()
+    JobConfig.get_jobs()
     |> Enum.find_value(fn job = %Job{pattern: pattern} ->
       pattern_prefix = prefix(pattern)
       prefix_length = String.length(pattern_prefix)
@@ -19,17 +19,6 @@ defmodule AniMover.JobScheduler do
       {:ok, job} -> {:ok, job}
       _ -> :no_job_found
     end
-  end
-
-  def load_jobs(job_file \\ "jobs.json") do
-    job_file
-    |> File.read!()
-    |> Jason.decode!(keys: :atoms!)
-    |> Map.fetch!(:jobs)
-    |> Enum.map(&AniMover.Job.new(&1))
-  rescue
-    e in File.Error -> Logger.error("Failed to open file: #{inspect(e)}")
-    e in Jason.DecodeError -> Logger.error("Failed to deserialize JSON file: #{inspect(e)}")
   end
 
   defp prefix(pattern) do
