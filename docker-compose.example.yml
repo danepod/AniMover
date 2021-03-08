@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  ani_mover:
+    container_name: ani_mover
+    image: ani_mover/ani_mover:latest
+    ports:
+      - "4000:4000/tcp"
+    environment:
+      MIX_ENV: "dev"
+    volumes:
+      - "./priv/:/mnt/priv"
