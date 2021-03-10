@@ -3,6 +3,24 @@
   <p>Peace of mind from prototype to production</p>
 </section>
 
+
+<p>Watching over <%= inspect(@config.watched_folders) %></p>
+<ul>
+<%= for job <- @config.jobs do %>
+  <li><%= job.pattern %>
+    <ul>
+    <li>Destination: <%= job.destination %></li>
+    <li>Target Pattern: <%= job.target_pattern %></li>
+    <li>Options: <%= inspect(job.opts) %></li>
+    </ul>
+  </li>
+<% end %>
+</ul>
+
+<form method="post" action="<%= Routes.api_path(@conn, :scan_now) %>">
+  <button type="submit">Scan Now</button>
+</form>
+
 <section class="row">
   <article class="column">
     <h2>Resources</h2>

@@ -11,6 +11,8 @@ defmodule AniMoverWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+
+    post "/scan_now", AniMoverWeb.APIController, :scan_now
   end
 
   scope "/", AniMoverWeb do
