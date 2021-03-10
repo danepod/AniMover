@@ -6,15 +6,23 @@ defmodule AniMover.Application do
   use Application
 
   def start(_type, _args) do
+    # TODO: Create proper runtime-configuration
+    job_file =
+      case System.fetch_env("JOB_FILE") do
+        {:ok, result} -> result
+        :error -> "jobs.json"
+      end
+
     children = [
       # Start the Telemetry supervisor
       AniMoverWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: AniMover.PubSub},
       # Start the Endpoint (http/https)
-      AniMoverWeb.Endpoint
+      AniMoverWeb.Endpoint,
       # Start a worker by calling: AniMover.Worker.start_link(arg)
-      # {AniMover.Worker, arg}
+      {AniMover.JobConfig, job_file: job_file},
+      AniMover.FileWatcher
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
