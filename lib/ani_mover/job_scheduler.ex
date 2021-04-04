@@ -1,8 +1,13 @@
 defmodule AniMover.JobScheduler do
+  @moduledoc """
+  This module takes care of querying the active jobs list to see if any of them match the given file.
+  """
+
   require Logger
 
   alias AniMover.{Job, JobConfig}
 
+  # TODO: Move this function into AniMover.JobConfig
   def active?(file_name) do
     JobConfig.get_jobs()
     |> Enum.find_value(fn job = %Job{pattern: pattern} ->

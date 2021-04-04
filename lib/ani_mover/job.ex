@@ -1,4 +1,8 @@
 defmodule AniMover.Job do
+  @moduledoc """
+  This struct describes one scheduled job and its available options.
+  """
+
   @enforce_keys [:pattern, :destination, :target_pattern]
   defstruct pattern: nil, destination: nil, target_pattern: nil, opts: []
 
