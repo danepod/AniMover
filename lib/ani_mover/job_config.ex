@@ -1,4 +1,9 @@
 defmodule AniMover.JobConfig do
+  @moduledoc """
+  This module takes care of loading job configurations from JSON files and providing a facility for other parts of the
+  apps to query for these jobs.
+  """
+
   use GenServer
 
   require Logger

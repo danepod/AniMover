@@ -1,4 +1,8 @@
 defmodule AniMover.FileWatcher do
+  @moduledoc """
+  This module sets up a file-watcher and receives its events.
+  """
+
   use GenServer
 
   require Logger
@@ -29,7 +33,7 @@ defmodule AniMover.FileWatcher do
     {:reply, :ok, state}
   end
 
-  def handle_info({:file_event, watcher_pid, {path, events}}, %{watcher_pid: watcher_pid} = state) do
+  def handle_info(state = {:file_event, watcher_pid, {path, events}}, %{watcher_pid: watcher_pid}) do
     cond do
       Enum.member?(events, :modified) and File.dir?(path) -> scan_folder(path)
       Enum.any?(events, fn event -> event in @watched_events end) -> process_file(path)
@@ -39,7 +43,7 @@ defmodule AniMover.FileWatcher do
     {:noreply, state}
   end
 
-  def handle_info({:file_event, watcher_pid, :stop}, %{watcher_pid: watcher_pid} = state) do
+  def handle_info(state = {:file_event, watcher_pid, :stop}, %{watcher_pid: watcher_pid}) do
     # This executes when the file monitor is stopped
     {:noreply, state}
   end

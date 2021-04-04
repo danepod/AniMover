@@ -1,4 +1,8 @@
 defmodule AniMover.FileMover do
+  @moduledoc """
+  This module takes care of moving files from one place in the filesystem to another.
+  """
+
   require Logger
 
   @doc """
@@ -20,13 +24,13 @@ defmodule AniMover.FileMover do
            AniMover.Renamer.rename(Path.basename(old_path), old_name_pattern, new_name_pattern, opts),
          new_path = Path.join(new_path, new_filename),
          {time_µs, :ok} <- move_file(old_path, new_path) do
-      Logger.info("[FileMover] Moving file \"#{old_path}\" to \"#{new_path}\" took #{time_µs / 1_000_000}s")
+      Logger.info(~s([FileMover] Moving file "#{old_path}" to "#{new_path}" took #{time_µs / 1_000_000}s))
     else
       {:error, :no_match} ->
         Logger.info("[FileMover] Aborted moving file \"#{old_path}\": Name didn't match pattern fully.")
 
       {{:error, reason}, _time_µs} ->
-        Logger.error("[FileMover] Moving file \"#{old_path}\" to \"#{new_path}\" failed: #{reason}")
+        Logger.error(~s([FileMover] Moving file "#{old_path}" to "#{new_path}" failed: #{reason}))
     end
   end
 
