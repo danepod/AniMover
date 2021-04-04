@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  JOB_FILE: jobs.example.json
+
 jobs:
   build:
 
